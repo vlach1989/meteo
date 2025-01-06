@@ -1,11 +1,7 @@
-export default async function Home() {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-    const data = await fetch(apiUrl);
-    const d = await data.json();
+import Now from "./now/page";
 
-  return (
-    <div>
-        {d.observations?.[0].metric.temp}
-    </div>
-  );
+export default function Home() {
+	return (
+		<Now/>
+	);
 }
