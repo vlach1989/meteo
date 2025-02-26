@@ -18,7 +18,6 @@ export default async function Home() {
            y: obs.metric.tempAvg
        }
     });
-    console.log(chartData);
 
   return (
     <Chart data={[{id: "today", color: "hsl(100, 70%, 50%)", data: chartData}]}/>
