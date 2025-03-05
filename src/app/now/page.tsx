@@ -1,11 +1,18 @@
-export default async function Home() {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL_NOW;
-    const data = await fetch(apiUrl);
-    const d = await data.json();
+import Papa from 'papaparse';
 
-  return (
-    <div>
-        {d.observations?.[0].metric.temp}
-    </div>
-  );
+interface ParsedData {
+	data: { [key: string]: number }[];
+}
+
+export default async function FetchCSVData() {
+	const csvUrl = process.env.API_NOW;
+	const response = await fetch(csvUrl);
+	const csvText = await response.text();
+
+	const parsedData: ParsedData = Papa.parse(csvText, {
+		header: true,
+		dynamicTyping: true,
+		delimiter: ',',
+	});
+	return <>{parsedData?.data[0].temp}</>;
 }
