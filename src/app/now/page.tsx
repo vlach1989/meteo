@@ -1,4 +1,5 @@
 import Papa from 'papaparse';
+import TemperatureCard from '@/components/TemperatureCard';
 
 interface ParsedData {
 	data: { [key: string]: number }[];
@@ -14,5 +15,5 @@ export default async function FetchCSVData() {
 		dynamicTyping: true,
 		delimiter: ',',
 	});
-	return <>{parsedData?.data[0].temp}</>;
+	return <TemperatureCard temperature={parsedData?.data[0].temp} />;
 }
