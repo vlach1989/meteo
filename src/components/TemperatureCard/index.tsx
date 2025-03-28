@@ -4,7 +4,7 @@ interface TemperatureCardProps {
 	temperature: number;
 }
 
-const TemperatureCard = ({ temperature }: TemperatureCardProps) => {
+const TemperatureCard = ({temperature}: TemperatureCardProps) => {
 	const degrees = Math.floor(temperature);
 	const decimals = temperature.toString().split('.')[1] || '0';
 
