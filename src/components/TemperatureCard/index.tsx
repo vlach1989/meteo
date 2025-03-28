@@ -7,6 +7,7 @@ interface TemperatureCardProps {
 const TemperatureCard = ({temperature}: TemperatureCardProps) => {
 	const degrees = Math.floor(temperature);
 	const decimals = temperature.toString().split('.')[1] || '0';
+	const className = 'meteo-TemperatureCard';
 
 	return (
 		<div className="meteo-TemperatureCard">

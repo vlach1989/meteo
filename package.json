@@ -7,11 +7,12 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "eslint .",
+		"lintFix": "eslint --fix",
 		"format": "prettier --write .",
 		"prepare": "husky"
 	},
 	"lint-staged": {
-		"**/*": "prettier --write --ignore-unknown"
+		"**/*": "npm run lintFix && prettier --write --ignore-unknown"
 	},
 	"dependencies": {
 		"next": "^15.2.4",
