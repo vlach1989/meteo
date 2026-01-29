@@ -3,6 +3,7 @@ import nextPlugin from '@next/eslint-plugin-next';
 import tsParser from '@typescript-eslint/parser';
 import tsPlugin from '@typescript-eslint/eslint-plugin';
 import prettierConfig from 'eslint-config-prettier';
+import globals from 'globals';
 
 export default [
 	// 1. Global Ignores
@@ -18,6 +19,10 @@ export default [
 			parser: tsParser,
 			parserOptions: {
 				ecmaFeatures: {jsx: true},
+			},
+			globals: {
+				...globals.browser,
+				...globals.node,
 			},
 		},
 		plugins: {
