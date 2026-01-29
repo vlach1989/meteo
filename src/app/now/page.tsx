@@ -1,5 +1,7 @@
 import Papa from 'papaparse';
 import TemperatureCard from '@/components/TemperatureCard';
+import process from 'process';
+import fetch from 'node-fetch';
 
 interface ParsedData {
 	data: {[key: string]: number}[];

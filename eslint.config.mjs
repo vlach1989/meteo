@@ -1,19 +1,50 @@
-import {dirname} from 'path';
-import {fileURLToPath} from 'url';
-import {FlatCompat} from '@eslint/eslintrc';
+import js from '@eslint/js';
+import nextPlugin from '@next/eslint-plugin-next';
+import tsParser from '@typescript-eslint/parser';
+import tsPlugin from '@typescript-eslint/eslint-plugin';
+import prettierConfig from 'eslint-config-prettier';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+export default [
+	// 1. Global Ignores
+	{
+		ignores: ['.next/', 'node_modules/', 'out/', 'build/'],
+	},
 
-const compat = new FlatCompat({
-	baseDirectory: __dirname,
-});
+	// 2. Base Javascript & Typescript Setup
+	js.configs.recommended,
+	{
+		files: ['**/*.ts', '**/*.tsx'],
+		languageOptions: {
+			parser: tsParser,
+			parserOptions: {
+				ecmaFeatures: {jsx: true},
+			},
+		},
+		plugins: {
+			'@typescript-eslint': tsPlugin,
+		},
+		rules: {
+			...tsPlugin.configs.recommended.rules,
+		},
+	},
 
-const eslintConfig = [
-	...compat.config({
-		extends: ['next/core-web-vitals', 'next/typescript', 'prettier'],
-		ignorePatterns: ['!src/**/*'],
-	}),
+	// 3. Next.js Native Flat Config
+	{
+		files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
+		plugins: {
+			'@next/next': nextPlugin,
+		},
+		rules: {
+			...nextPlugin.configs.recommended.rules,
+			...nextPlugin.configs['core-web-vitals'].rules,
+		},
+		settings: {
+			next: {
+				rootDir: './',
+			},
+		},
+	},
+
+	// 4. Prettier (Must be last to override styling rules)
+	prettierConfig,
 ];
-
-export default eslintConfig;
