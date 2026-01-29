@@ -1,36 +1,23 @@
-import Papa from 'papaparse';
 import TemperatureCard from '@/components/TemperatureCard';
 
-interface ParsedData {
-	data: {temp: number}[];
+async function getTemperature() {
+	const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/now`, {cache: 'no-store'});
+
+	if (!res.ok) {
+		throw new Error('Failed to fetch data');
+	}
+
+	return res.json();
 }
 
 /**
- * Fetches CSV data from the API endpoint and renders the current temperature.
+ * Fetches temperature data from the API endpoint and renders it.
  * This is a server-side component that fetches data on the server.
  */
 export default async function NowPage() {
-	const csvUrl = process.env.API_NOW;
-
-	if (!csvUrl) {
-		console.error('API_NOW environment variable is not set.');
-		return <p>Could not fetch data. Configuration error.</p>;
-	}
-
 	try {
-		const response = await fetch(csvUrl);
-		if (!response.ok) {
-			throw new Error(`Failed to fetch CSV: ${response.statusText}`);
-		}
-		const csvText = await response.text();
-
-		const parsedData: ParsedData = Papa.parse(csvText, {
-			header: true,
-			dynamicTyping: true,
-			delimiter: ',',
-		});
-
-		const temperature = parsedData?.data[0]?.temp;
+		const data = await getTemperature();
+		const temperature = data.temperature;
 
 		if (temperature === undefined) {
 			return <p>Could not parse temperature data.</p>;
