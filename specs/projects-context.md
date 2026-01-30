@@ -31,8 +31,6 @@ is type-safe, performant, and follows the specific architecture of this project.
 3. **State Management:**
    - Prefer not to use global state. Each component should be responsible for
      its own data. Use React context for global state only when needed
-4. **Error Handling:** Always implement `loading.tsx` and `error.tsx` for every
-   new route segment. Wrap Server Action logic in try/catch blocks.
 
 ## ✍️ CODING STYLE
 

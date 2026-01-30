@@ -1,32 +1,29 @@
-import {Card, Text} from '@mantine/core';
-import './style.css';
+import TemperatureCardClient from './TemperatureCard.client';
+import {Alert} from '@mantine/core';
+import fetchData from '@/helpers/fetchData';
 
-interface TemperatureCardProps {
-	/** The temperature to display. */
-	temperature: number;
-}
+const TemperatureCard = async () => {
+	try {
+		const data = await fetchData('now');
+		const temperature = data.temperature;
 
-/**
- * A component that displays the temperature in a card format.
- * @param {TemperatureCardProps} props - The props for the component.
- */
-const TemperatureCard = ({temperature}: TemperatureCardProps) => {
-	const degrees = Math.floor(temperature);
-	const decimals = temperature.toString().split('.')[1] || '0';
+		if (temperature === undefined) {
+			return (
+				<Alert color="yellow" title="Warning">
+					Could not parse temperature data.
+				</Alert>
+			);
+		}
 
-	return (
-		<Card className="meteo-TemperatureCard" shadow="sm" padding="lg" radius="md" withBorder>
-			<Text component="span" className="meteo-TemperatureCard-degrees">
-				{degrees}
-			</Text>
-			<Text component="span" className="meteo-TemperatureCard-decimals">
-				.{decimals}
-			</Text>
-			<Text component="span" className="meteo-TemperatureCard-units">
-				°C
-			</Text>
-		</Card>
-	);
+		return <TemperatureCardClient temperature={temperature} />;
+	} catch (error) {
+		console.error(error);
+		return (
+			<Alert color="red" title="Error">
+				Error fetching or parsing data.
+			</Alert>
+		);
+	}
 };
 
 export default TemperatureCard;
