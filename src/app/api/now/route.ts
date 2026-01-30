@@ -1,21 +1,30 @@
 import Papa from 'papaparse';
 import {NextResponse} from 'next/server';
+import {getEndpointUrl} from '@/helpers/getEndpointUrl';
 
 interface ParsedData {
 	data: {temp: number}[];
 }
 
 export async function GET() {
-	const csvUrl = process.env.API_NOW;
+	const apiUrl = process.env.API_URL;
+	const endpointId = process.env.API_NOW_ID;
 
-	if (!csvUrl) {
-		return NextResponse.json({error: 'Could not fetch data. Configuration error.'}, {status: 500});
+	if (!apiUrl || !endpointId) {
+		return NextResponse.json({error: 'Missing API_URL or API_NOW environment variable.'}, {status: 500});
 	}
+
+	const csvUrl = getEndpointUrl({apiUrl, endpointId});
 
 	try {
 		const response = await fetch(csvUrl);
+
 		if (!response.ok) {
-			throw new Error(`Failed to fetch CSV: ${response.statusText}`);
+			console.error(`Failed to fetch CSV data from ${csvUrl}. Status: ${response.status} ${response.statusText}`);
+			return NextResponse.json(
+				{error: 'Failed to fetch data from upstream service.'},
+				{status: response.status || 500}
+			);
 		}
 		const csvText = await response.text();
 
