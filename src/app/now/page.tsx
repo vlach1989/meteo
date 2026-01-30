@@ -1,7 +1,9 @@
 import TemperatureCard from '@/components/TemperatureCard';
+import {Alert} from '@mantine/core';
 
 async function getTemperature() {
-	const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/now`, {cache: 'no-store'});
+	const baseUrl = process.env.NEXT_PUBLIC_URL;
+	const res = await fetch(`${baseUrl}/api/now`, {cache: 'no-store'});
 
 	if (!res.ok) {
 		throw new Error('Failed to fetch data');
@@ -20,12 +22,20 @@ export default async function NowPage() {
 		const temperature = data.temperature;
 
 		if (temperature === undefined) {
-			return <p>Could not parse temperature data.</p>;
+			return (
+				<Alert color="yellow" title="Warning">
+					Could not parse temperature data.
+				</Alert>
+			);
 		}
 
 		return <TemperatureCard temperature={temperature} />;
 	} catch (error) {
 		console.error(error);
-		return <p>Error fetching or parsing data.</p>;
+		return (
+			<Alert color="red" title="Error">
+				Error fetching or parsing data.
+			</Alert>
+		);
 	}
 }

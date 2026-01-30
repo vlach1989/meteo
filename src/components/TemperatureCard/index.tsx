@@ -1,3 +1,4 @@
+import {Card, Text} from '@mantine/core';
 import './style.css';
 
 interface TemperatureCardProps {
@@ -14,11 +15,17 @@ const TemperatureCard = ({temperature}: TemperatureCardProps) => {
 	const decimals = temperature.toString().split('.')[1] || '0';
 
 	return (
-		<div className="meteo-TemperatureCard">
-			<div className="meteo-TemperatureCard-degrees">{degrees}</div>
-			<div className="meteo-TemperatureCard-decimals">.{decimals}</div>
-			<div className="meteo-TemperatureCard-units">°C</div>
-		</div>
+		<Card className="meteo-TemperatureCard" shadow="sm" padding="lg" radius="md" withBorder>
+			<Text component="span" className="meteo-TemperatureCard-degrees">
+				{degrees}
+			</Text>
+			<Text component="span" className="meteo-TemperatureCard-decimals">
+				.{decimals}
+			</Text>
+			<Text component="span" className="meteo-TemperatureCard-units">
+				°C
+			</Text>
+		</Card>
 	);
 };
 
