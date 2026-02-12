@@ -34,7 +34,7 @@ export function TemperatureChartClient({data}: TemperatureChartClientProps) {
 	return (
 		<Box style={{width: '100%', height: '100%'}}>
 			<LineChart
-				h="100%"
+				h="30rem"
 				w="100%"
 				data={data}
 				dataKey="obsTimeLocal"
