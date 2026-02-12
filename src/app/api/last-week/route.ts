@@ -6,9 +6,14 @@ interface ParsedData {
 	data: {obsTimeLocal: string; temp: number}[];
 }
 
+/**
+ * GET endpoint for weather data from the last week
+ * Cached based on REVALIDATE_LAST_WEEK environment variable (default: 3600 seconds)
+ */
 export async function GET() {
 	const apiUrl = process.env.API_URL;
 	const endpointId = process.env.API_LAST_WEEK_ID;
+	const revalidateTime = parseInt(process.env.REVALIDATE_LAST_WEEK || '3600', 10);
 
 	if (!apiUrl || !endpointId) {
 		return NextResponse.json({error: 'Missing API_URL or API_LAST_WEEK_ID environment variable.'}, {status: 500});
@@ -17,7 +22,13 @@ export async function GET() {
 	const csvUrl = getEndpointUrl({apiUrl, endpointId});
 
 	try {
-		const response = await fetch(csvUrl);
+		const response = await fetch(csvUrl, {
+			// Enable caching for the upstream fetch
+			next: {
+				revalidate: revalidateTime,
+				tags: ['weather-last-week'],
+			},
+		});
 
 		if (!response.ok) {
 			console.error(`Failed to fetch CSV data from ${csvUrl}. Status: ${response.status} ${response.statusText}`);
@@ -39,7 +50,12 @@ export async function GET() {
 			temp: row.temp,
 		}));
 
-		return NextResponse.json(filteredData);
+		return NextResponse.json(filteredData, {
+			headers: {
+				// Set cache headers for browser and CDN
+				'Cache-Control': `public, s-maxage=${revalidateTime}, stale-while-revalidate=${revalidateTime * 2}`,
+			},
+		});
 	} catch (error) {
 		console.error(error);
 		return NextResponse.json({error: 'Error fetching or parsing data.'}, {status: 500});
