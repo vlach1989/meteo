@@ -21,12 +21,17 @@ export function Navigation() {
 	const currentValue = pathname?.startsWith('/last-week') ? '/last-week' : '/now';
 
 	return (
-		<div className={classes.root}>
+		<div className={classes.Navigation}>
 			<SegmentedControl
 				data={NAV_ITEMS}
 				value={currentValue}
 				onChange={(value) => router.push(value)}
-				classNames={{control: classes.control}}
+				classNames={{
+					root: classes['Navigation-segmented'],
+					control: classes['Navigation-control'],
+					label: classes['Navigation-label'],
+					indicator: classes['Navigation-indicator'],
+				}}
 				withItemsBorders={false}
 			/>
 		</div>

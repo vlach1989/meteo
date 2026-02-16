@@ -18,6 +18,9 @@
   - **Custom CSS Modules:** Each component must have its own `.module.css`
     file. No global CSS or utility-first frameworks (like Tailwind) unless
     explicitly specified.
+  - ** CSS class naming:** Use SUIT conventions for CSS class names to ensure
+    clarity and
+    maintainability.
 - **Data Layer:** \* **Source:** Google Sheets via Public CSV URL export.
   - **Fetching:** Use `fetch` with appropriate revalidation tags (ISR) to keep
     sheet data fresh.

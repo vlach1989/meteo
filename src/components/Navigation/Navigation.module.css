@@ -1,9 +1,35 @@
-.root {
+.Navigation {
 	display: flex;
 	justify-content: center;
 	padding: 16px 0;
 }
 
-.control {
+.Navigation-segmented {
+	border-radius: 999px;
+	background-color: var(--mantine-color-gray-1);
+	padding: 4px;
+}
+
+.Navigation-control {
 	min-width: 140px;
+}
+
+.Navigation-label {
+	font-weight: 600;
+	padding: 6px 12px;
+}
+
+.Navigation-indicator {
+	border-radius: 999px;
+	background-color: var(--mantine-color-blue-6);
+}
+
+@media (max-width: 640px) {
+	.Navigation {
+		padding: 12px 8px;
+	}
+
+	.Navigation-control {
+		min-width: 120px;
+	}
 }
