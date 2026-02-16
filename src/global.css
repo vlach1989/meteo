@@ -6,11 +6,3 @@ body {
 	display: flex;
 	flex-direction: column;
 }
-
-.wrapper {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex: 1;
-	background-image: linear-gradient(120deg, #fccb90 0%, #d57eeb 100%);
-}

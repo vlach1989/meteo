@@ -1,10 +1,7 @@
-import Papa from 'papaparse';
 import {NextResponse} from 'next/server';
+import {parse} from 'csv-parse/sync';
 import {getEndpointUrl} from '@/helpers/getEndpointUrl';
-
-interface ParsedData {
-	data: {temp: number}[];
-}
+import {NowData} from '@/types/api';
 
 /**
  * GET endpoint for current weather data
@@ -23,7 +20,6 @@ export async function GET() {
 
 	try {
 		const response = await fetch(csvUrl, {
-			// Enable caching for the upstream fetch
 			next: {
 				revalidate: revalidateTime,
 				tags: ['weather-now'],
@@ -39,27 +35,23 @@ export async function GET() {
 		}
 		const csvText = await response.text();
 
-		const parsedData: ParsedData = Papa.parse(csvText, {
-			header: true,
-			dynamicTyping: true,
-			delimiter: ',',
+		const [record] = parse(csvText, {
+			columns: true,
+			skip_empty_lines: true,
+			cast: true,
+		}) as NowData[];
+
+		const nowConditions: NowData = {
+			temp: record.temp,
+			humidity: record.humidity,
+			windSpeed: record.windSpeed,
+		};
+
+		return NextResponse.json(nowConditions, {
+			headers: {
+				'Cache-Control': `public, s-maxage=${revalidateTime}, stale-while-revalidate=${revalidateTime * 2}`,
+			},
 		});
-
-		const temperature = parsedData?.data[0]?.temp;
-
-		if (temperature === undefined) {
-			return NextResponse.json({error: 'Could not parse temperature data.'}, {status: 500});
-		}
-
-		return NextResponse.json(
-			{temperature},
-			{
-				headers: {
-					// Set cache headers for browser and CDN
-					'Cache-Control': `public, s-maxage=${revalidateTime}, stale-while-revalidate=${revalidateTime * 2}`,
-				},
-			}
-		);
 	} catch (error) {
 		console.error(error);
 		return NextResponse.json({error: 'Error fetching or parsing data.'}, {status: 500});

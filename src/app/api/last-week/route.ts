@@ -1,10 +1,7 @@
 import {NextResponse} from 'next/server';
-import Papa from 'papaparse';
+import {parse} from 'csv-parse/sync';
 import {getEndpointUrl} from '@/helpers/getEndpointUrl';
-
-interface ParsedData {
-	data: {obsTimeLocal: string; temp: number}[];
-}
+import {LastWeekData} from '@/types/api';
 
 /**
  * GET endpoint for weather data from the last week
@@ -23,7 +20,6 @@ export async function GET() {
 
 	try {
 		const response = await fetch(csvUrl, {
-			// Enable caching for the upstream fetch
 			next: {
 				revalidate: revalidateTime,
 				tags: ['weather-last-week'],
@@ -39,20 +35,19 @@ export async function GET() {
 		}
 		const csvText = await response.text();
 
-		const parsedData: ParsedData = Papa.parse(csvText, {
-			header: true,
-			dynamicTyping: true,
-			delimiter: ',',
-		});
+		const records = parse(csvText, {
+			columns: true,
+			skip_empty_lines: true,
+			cast: true,
+		}) as {obsTimeLocal: string; temp: number}[];
 
-		const filteredData = parsedData.data.map((row: {obsTimeLocal: string; temp: number}) => ({
-			obsTimeLocal: row.obsTimeLocal,
+		const filteredData: LastWeekData = records.map((row: {obsTimeLocal: string; temp: number}) => ({
+			date: row.obsTimeLocal,
 			temp: row.temp,
 		}));
 
 		return NextResponse.json(filteredData, {
 			headers: {
-				// Set cache headers for browser and CDN
 				'Cache-Control': `public, s-maxage=${revalidateTime}, stale-while-revalidate=${revalidateTime * 2}`,
 			},
 		});

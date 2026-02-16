@@ -3,7 +3,6 @@ import type {Metadata} from 'next';
 import '@mantine/core/styles.css';
 import '@mantine/charts/styles.css';
 import {ColorSchemeScript, MantineProvider} from '@mantine/core';
-import NavBar from '@/components/NavBar';
 import '../global.css';
 
 export const metadata: Metadata = {
@@ -23,10 +22,7 @@ export default function RootLayout({
 				<ColorSchemeScript defaultColorScheme="light" />
 			</head>
 			<body>
-				<MantineProvider defaultColorScheme="light">
-					<NavBar />
-					<div className="wrapper">{children}</div>
-				</MantineProvider>
+				<MantineProvider defaultColorScheme="light">{children}</MantineProvider>
 			</body>
 		</html>
 	);
