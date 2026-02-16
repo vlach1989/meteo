@@ -40,6 +40,13 @@
 - **State Management:** Use `nuqs` library for global state management. We want
   a persistent state management solution which can be used for sharing app state
   across users.
+- **Docs & Types:** All components and utilities must be well-documented with
+  JSDoc
+  comments. TypeScript interfaces must be defined for all data structures, and
+  no `any` types are allowed.
+- **Imports:** Imports should be sorted from external libraries to internal
+  modules, and should be grouped by type (e.g., React imports, then third-party
+  libraries, then local components/utilities).
 
 ## 4. Definition of Done (DoD)
 
@@ -47,3 +54,5 @@
 - TypeScript compiles without errors; avoid using the `any` type.
 - Components are responsive and utilize Mantine’s grid/breakpoint system.
 - CSV data from Google Sheets is correctly typed and rendered in the UI.
+- Check completed tasks in the Task List (`plans/task-list.md`) to ensure all
+  features are implemented.

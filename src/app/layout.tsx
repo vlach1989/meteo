@@ -4,12 +4,16 @@ import '@mantine/core/styles.css';
 import '@mantine/charts/styles.css';
 import {ColorSchemeScript, MantineProvider} from '@mantine/core';
 import '../global.css';
+import {Navigation} from '../components/Navigation';
 
 export const metadata: Metadata = {
 	title: 'Meteo',
 	description: 'Weather information dashboard',
 };
 
+/**
+ * Root layout for the Meteo app.
+ */
 export default function RootLayout({
 	children,
 }: Readonly<{
@@ -22,7 +26,10 @@ export default function RootLayout({
 				<ColorSchemeScript defaultColorScheme="light" />
 			</head>
 			<body>
-				<MantineProvider defaultColorScheme="light">{children}</MantineProvider>
+				<MantineProvider defaultColorScheme="light">
+					<Navigation />
+					{children}
+				</MantineProvider>
 			</body>
 		</html>
 	);

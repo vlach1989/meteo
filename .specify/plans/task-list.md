@@ -2,7 +2,7 @@
 
 ## Phase 1: Shared UI Components
 
-- [ ] **Task 3.1:** Create `components/Navigation` using Mantine `Tabs` or
+- [x] **Task 3.1:** Create `components/Navigation` using Mantine `Tabs` or
       `SegmentedControl` to switch between `/now` and `/last-week`.
 - [ ] **Task 3.2:** Apply custom `.module.css` for the Navigation component
       according to the Constitution.
