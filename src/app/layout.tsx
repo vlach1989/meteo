@@ -1,10 +1,10 @@
 import React from 'react';
 import type {Metadata} from 'next';
-import '@mantine/core/styles.css';
-import '@mantine/charts/styles.css';
 import {ColorSchemeScript, MantineProvider} from '@mantine/core';
-import '../global.css';
 import {Navigation} from '../components/Navigation';
+import classes from './layout.module.css';
+import '@mantine/charts/styles.css';
+import '@mantine/core/styles.css';
 
 export const metadata: Metadata = {
 	title: 'Meteo',
@@ -25,7 +25,7 @@ export default function RootLayout({
 				<title>Meteo</title>
 				<ColorSchemeScript defaultColorScheme="light" />
 			</head>
-			<body>
+			<body className={classes['RootLayout-body']}>
 				<MantineProvider defaultColorScheme="light">
 					<Navigation />
 					{children}

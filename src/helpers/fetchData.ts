@@ -1,9 +1,9 @@
 /**
- * Fetches data from the specified API endpoint
- * @param {string} endpoint - The API endpoint to fetch from (e.g., 'now', 'last-week')
- * @returns {Promise<any>} The JSON response from the endpoint
+ * Fetches data from the specified API endpoint.
+ * @param {string} endpoint - The API endpoint to fetch from (e.g., 'now', 'last-week').
+ * @returns {Promise<T>} The JSON response from the endpoint.
  */
-async function fetchData(endpoint: string) {
+async function fetchData<T>(endpoint: string): Promise<T> {
 	const baseUrl = process.env.NEXT_PUBLIC_URL;
 
 	if (!baseUrl) {
@@ -33,7 +33,7 @@ async function fetchData(endpoint: string) {
 			throw new Error(`Failed to fetch data from /api/${endpoint}: ${errorMessage}`);
 		}
 
-		return res.json();
+		return res.json() as Promise<T>;
 	} catch (error) {
 		if (error instanceof Error) {
 			console.error(`fetchData error for ${endpoint}:`, error.message);

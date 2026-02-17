@@ -2,54 +2,53 @@
 
 ## 1. Core Principles
 
-- **Source of Truth:** The Specification (`spec.md`) is the primary authority.
-  Code must reflect the spec.
-- **Simplicity First:** Leverage Google Sheets for data management to avoid
-  complex backend infrastructure.
-- **Type Safety:** Strict TypeScript usage is mandatory to ensure data from CSVs
-  is handled predictably.
+- **Specification Authority:** The Specification (`spec.md`) is the final
+  authority. Any code deviating from the spec without an updated spec file is
+  considered a bug.
+- **Simplicity First:** Leverage Google Sheets (CSV) as the exclusive data
+  source to avoid complex backend infrastructure.
+- **Type Safety:** 100% TypeScript coverage is mandatory; interfaces must
+  exactly mirror CSV column headers to ensure predictable data handling.
 
 ## 2. Tech Stack Constraints
 
-- **Framework:** Next.js 16 (App Router)
-  - Use **Server Components** by default for data fetching.
-  - Adhere strictly to `page.tsx` and `layout.tsx` conventions.
-- **Styling:** \* **Mantine UI** for core components (Buttons, Modals, Inputs).
-  - **Custom CSS Modules:** Each component must have its own `.module.css`
-    file. No global CSS or utility-first frameworks (like Tailwind) unless
-    explicitly specified.
-  - ** CSS class naming:** Use SUIT conventions for CSS class names to ensure
-    clarity and
+- **Framework:** Next.js 16 (App Router).
+  - **Server-First:** Use Server Components by default for data fetching.
+  - **Routing:** Adhere strictly to `page.tsx`, `layout.tsx`, `loading.tsx`, and
+    `error.tsx` conventions.
+- **Styling (Mantine UI + CSS Modules):**
+  - **Architecture:** Use Mantine for core components and CSS Modules for custom
+    styling.
+  - **No Utilities:** Strictly no Tailwind CSS, global CSS, or utility-first
+    frameworks.
+  - **Naming Convention:** Use **SUIT CSS** (e.g., `.ComponentName`,
+    `.ComponentName--modifier`, `.ComponentName-descendant`) for clarity and
     maintainability.
-- **Data Layer:** \* **Source:** Google Sheets via Public CSV URL export.
-  - **Fetching:** Use `fetch` with appropriate revalidation tags (ISR) to keep
-    sheet data fresh.
-  - **Parsing:** Use a lightweight parsing strategy (e.g., `papaparse`) to map
-    CSV rows to TypeScript Interfaces.
+- **Data Layer:**
+  - **Source:** Google Sheets via Public CSV URL export.
+  - **Strategy:** Use native `fetch` with appropriate revalidation tags (ISR)
+    for 60s freshness.
+  - **Parsing:** Use `papaparse` for mapping CSV rows to strict TypeScript
+    Interfaces.
 
 ## 3. Architecture Rules
 
-- **Component Structure:**
+- **Strict Component Pattern:**
   Each component must follow this folder pattern:
   ```text
   components/
-    MyComponent/
-      MyComponent.tsx
-      MyComponent.module.css
+    [ComponentName]/
+      [ComponentName].tsx
+      [ComponentName].module.css
       index.ts
   ```
-- **Data Integration:** Create a dedicated utility `lib/sheets.ts` to handle the
-  logic for CSV fetching and data transformation.
-- **State Management:** Use `nuqs` library for global state management. We want
-  a persistent state management solution which can be used for sharing app state
-  across users.
-- **Docs & Types:** All components and utilities must be well-documented with
-  JSDoc
-  comments. TypeScript interfaces must be defined for all data structures, and
-  no `any` types are allowed.
-- **Imports:** Imports should be sorted from external libraries to internal
-  modules, and should be grouped by type (e.g., React imports, then third-party
-  libraries, then local components/utilities).
+- **Data Integration:** Centralize logic in `lib/sheets.ts` for CSV fetching and
+  transformation.
+- **State Management:** Use `nuqs` for persistent, sharable global state via URL
+  parameters.
+- **Imports:** Sort imports from external libraries to internal modules; group
+  by type (React, third-party, local components, styles).
+- **Modularization:** Split code into reusable pieces; avoid monolithic files.
 
 ## 4. Definition of Done (DoD)
 
