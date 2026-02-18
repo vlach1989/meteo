@@ -1,0 +1,35 @@
+.SkeletonLoader {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.SkeletonLoader-header {
+	max-width: 280px;
+}
+
+.SkeletonLoader-metrics {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 12px;
+}
+
+.SkeletonLoader-lines {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.SkeletonLoader-line {
+	width: 100%;
+}
+
+.SkeletonLoader-chart {
+	width: 100%;
+}
+
+@media (max-width: 640px) {
+	.SkeletonLoader-metrics {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
