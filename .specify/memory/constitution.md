@@ -63,3 +63,4 @@
 - CSV data from Google Sheets is correctly typed and rendered in the UI.
 - Check completed tasks in the Task List (`plans/task-list.md`) to ensure all
   features are implemented.
+- Do the linting and formatting checks pass without errors

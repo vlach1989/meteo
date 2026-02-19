@@ -1,0 +1,9 @@
+.CurrentPosition {
+	color: var(--mantine-color-gray-7);
+	font-weight: 600;
+	font-size: 0.9rem;
+}
+
+.CurrentPosition-label {
+	background-color: var(--mantine-color-white);
+}

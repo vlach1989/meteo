@@ -20,7 +20,7 @@ export async function LastWeekChart() {
 
 	return (
 		<>
-			<MetricSwitcher items={METRIC_OPTIONS} defaultValue="temp" />
+			<MetricSwitcher items={METRIC_OPTIONS} />
 			<Suspense fallback={<SkeletonLoader showHeader={false} />}>
 				<LastWeekChartRenderer data={data} />
 			</Suspense>

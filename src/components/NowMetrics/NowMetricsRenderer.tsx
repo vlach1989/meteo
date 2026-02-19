@@ -2,6 +2,7 @@
 
 import {Card, Group, SimpleGrid, Stack, Text, Title} from '@mantine/core';
 import {useQueryState} from 'nuqs';
+import {metricParser} from '@/lib/state';
 import {NowData} from '@/types/api';
 import classes from './NowMetrics.module.css';
 
@@ -33,7 +34,7 @@ const formatValue = (value: number | null | undefined, unit: string) =>
  * @returns {JSX.Element} The rendered metrics UI.
  */
 export function NowMetricsRenderer({data}: {data: NowData}) {
-	const [metric] = useQueryState('metric');
+	const [metric] = useQueryState('metric', metricParser);
 	const selectedMetric: MetricKey = (metric as MetricKey) ?? 'temp';
 	const selectedConfig = METRIC_CONFIG[selectedMetric];
 	const selectedValue = data[selectedMetric];

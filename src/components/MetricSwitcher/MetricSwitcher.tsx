@@ -1,12 +1,12 @@
 'use client';
 
 import {SegmentedControl, type SegmentedControlItem} from '@mantine/core';
-import {parseAsStringEnum, useQueryState} from 'nuqs';
+import {useQueryState} from 'nuqs';
+import {metricParser} from '@/lib/state';
 import classes from './MetricSwitcher.module.css';
 
 type MetricSwitcherProps = {
 	items: SegmentedControlItem[];
-	defaultValue: string;
 	queryKey?: string;
 };
 
@@ -15,10 +15,8 @@ type MetricSwitcherProps = {
  * @param {MetricSwitcherProps} props - Component props.
  * @returns {JSX.Element} The rendered segmented control.
  */
-export function MetricSwitcher({items, defaultValue, queryKey = 'metric'}: MetricSwitcherProps) {
-	const validValues = items.map((item) => item.value);
-	const parser = parseAsStringEnum(validValues).withDefault(defaultValue);
-	const [metric, setMetric] = useQueryState(queryKey, parser);
+export function MetricSwitcher({items, queryKey = 'metric'}: MetricSwitcherProps) {
+	const [metric, setMetric] = useQueryState(queryKey, metricParser);
 
 	return (
 		<SegmentedControl

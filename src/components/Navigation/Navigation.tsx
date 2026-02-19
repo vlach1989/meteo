@@ -3,7 +3,7 @@
 import {Group} from '@mantine/core';
 import {IconChartLine, IconMap, IconSun} from '@tabler/icons-react';
 import Link from 'next/link';
-import {usePathname} from 'next/navigation';
+import {usePathname, useSearchParams} from 'next/navigation';
 import classes from './Navigation.module.css';
 
 /**
@@ -27,6 +27,8 @@ const NAV_ITEMS: NavItem[] = [
  */
 export function Navigation() {
 	const pathname = usePathname();
+	const searchParams = useSearchParams();
+	const queryString = searchParams?.toString();
 	const activeHref = pathname?.startsWith('/last-week') ? '/last-week' : pathname?.startsWith('/map') ? '/map' : '/now';
 
 	return (
@@ -38,9 +40,15 @@ export function Navigation() {
 						const linkClassName = isActive
 							? `${classes['Navigation-link']} ${classes['Navigation-link--active']}`
 							: classes['Navigation-link'];
+						const hrefWithQuery = queryString ? `${href}?${queryString}` : href;
 
 						return (
-							<Link key={href} href={href} className={linkClassName} aria-current={isActive ? 'page' : undefined}>
+							<Link
+								key={href}
+								href={hrefWithQuery}
+								className={linkClassName}
+								aria-current={isActive ? 'page' : undefined}
+							>
 								<span className={classes['Navigation-icon']}>
 									<Icon size={18} stroke={1.8} aria-hidden="true" />
 								</span>

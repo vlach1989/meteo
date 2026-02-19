@@ -49,7 +49,7 @@
 
 ## Phase 6: New feature: Map
 
-- [ ] **Task 6.1:** Add a new page `/map` that displays a map using the
+- [x] **Task 6.1:** Add a new page `/map` that displays a map using the
       `deck.gl` library. Current zoom and position of the map will be stored in
       URL (same way like other components in the app) and will be updated when user
       interacts with the map. Use the OpenStreetMap as base layer. Do not use map
@@ -60,8 +60,32 @@
       position and zoom can be shared via URL and will be preserved when user
       refreshes the page or navigates back and forth between pages. The map should
       also be responsive and work well on different screen sizes.
-- [ ] **Task 6.2:** Add a CurrentPosition component to the /now page, which will
+- [x] **Task 6.2:** Add a CurrentPosition component to the /now page, which will
       display the position & zoom which was set in the map on the `/map` page. This
       component will be updated when user interacts with the map on the `/map` page.
       The position and zoom will be displayed in a human-readable format (e.g., "
       Latitude: 40.7128, Longitude: -74.0060, Zoom: 12").
+
+## Phase 7: State Management
+
+- [x] **Task 7.1:** Since we are using `nuqs` for state management, we need to
+      ensure that all components are properly
+      subscribed to the relevant state slices and that the state updates are
+      handled correctly. This includes ensuring that the state is updated when
+      the user interacts with the components (e.g., toggling the metric switcher,
+      interacting with the map) and that the components re-render accordingly.
+      Check, if this is correctly set.
+- [x] **Task 7.2:** The current implementation of `nuqs` is scattered across
+      multiple components. This should be refactored into a more organized and
+      centralized state management solution. This includes creating a single source
+      of truth for the state and ensuring that all components are using the same
+      state management logic. This will make the state management more
+      maintainable and easier to debug.
+- [x] **Task 7.3:** Implement a mechanism to persist the state in the URL, so
+      that
+      the state can be shared via URL and will be preserved when user refreshes
+      the page or navigates back and forth between pages. Even if the user is on the
+      `/map` page and sets a specific position and zoom, when they navigate to the
+      `/now` page, the CurrentPosition component should reflect the same position
+      and zoom that was set on the map. This will ensure a consistent user
+      experience across different pages of the app.

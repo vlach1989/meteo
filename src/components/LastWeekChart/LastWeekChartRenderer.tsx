@@ -3,6 +3,7 @@
 import {LineChart} from '@mantine/charts';
 import {Stack} from '@mantine/core';
 import {useQueryState} from 'nuqs';
+import {metricParser} from '@/lib/state';
 import {LastWeekData} from '@/types/api';
 import classes from './LastWeekChart.module.css';
 
@@ -29,7 +30,7 @@ const formatDate = (date: string | number | Date) =>
  * @returns {JSX.Element} The rendered chart and controls.
  */
 export function LastWeekChartRenderer({data}: {data: LastWeekData}) {
-	const [metric] = useQueryState('metric');
+	const [metric] = useQueryState('metric', metricParser);
 	const selectedMetric: MetricKey = (metric as MetricKey) ?? 'temp';
 	const selectedConfig = METRIC_CONFIG[selectedMetric];
 

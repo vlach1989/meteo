@@ -2,25 +2,18 @@
 
 import DeckGL, {TileLayer} from 'deck.gl';
 import {BitmapLayer} from '@deck.gl/layers';
-import {parseAsFloat, useQueryState} from 'nuqs';
+import {useQueryState} from 'nuqs';
 import {ViewStateChangeParameters} from '@deck.gl/core';
-
-const INITIAL_VIEW_STATE = {
-	longitude: 14.4378,
-	latitude: 50.0755,
-	zoom: 11,
-	pitch: 0,
-	bearing: 0,
-};
+import {latParser, lonParser, zoomParser} from '@/lib/state';
 
 /**
  * Map component using deck.gl with URL state synchronization.
  * @returns {JSX.Element} The rendered map.
  */
 export function Map() {
-	const [longitude, setLongitude] = useQueryState('lon', parseAsFloat.withDefault(INITIAL_VIEW_STATE.longitude));
-	const [latitude, setLatitude] = useQueryState('lat', parseAsFloat.withDefault(INITIAL_VIEW_STATE.latitude));
-	const [zoom, setZoom] = useQueryState('zoom', parseAsFloat.withDefault(INITIAL_VIEW_STATE.zoom));
+	const [longitude, setLongitude] = useQueryState('lon', lonParser);
+	const [latitude, setLatitude] = useQueryState('lat', latParser);
+	const [zoom, setZoom] = useQueryState('zoom', zoomParser);
 
 	const viewState = {
 		longitude,

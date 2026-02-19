@@ -4,6 +4,7 @@ import {NowData} from '@/types/api';
 import {MetricSwitcher} from '../MetricSwitcher';
 import {SkeletonLoader} from '../SkeletonLoader';
 import {NowMetricsRenderer} from './NowMetricsRenderer';
+import {CurrentPosition} from '../CurrentPosition';
 
 const METRIC_OPTIONS = [
 	{label: 'Temp', value: 'temp'},
@@ -20,10 +21,11 @@ export async function NowMetrics() {
 
 	return (
 		<>
-			<MetricSwitcher items={METRIC_OPTIONS} defaultValue="temp" />
+			<MetricSwitcher items={METRIC_OPTIONS} />
 			<Suspense fallback={<SkeletonLoader showHeader={false} showChart={false} />}>
 				<NowMetricsRenderer data={data} />
 			</Suspense>
+			<CurrentPosition />
 		</>
 	);
 }
