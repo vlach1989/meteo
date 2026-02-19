@@ -1,7 +1,15 @@
 import {Suspense} from 'react';
 import fetchData from '@/helpers/fetchData';
 import {LastWeekData} from '@/types/api';
+import {MetricSwitcher} from '../MetricSwitcher';
+import {SkeletonLoader} from '../SkeletonLoader';
 import {LastWeekChartRenderer} from './LastWeekChartRenderer';
+
+const METRIC_OPTIONS = [
+	{label: 'Temp', value: 'temp'},
+	{label: 'Humidity', value: 'humidity'},
+	{label: 'Wind', value: 'windSpeed'},
+];
 
 /**
  * Server component to fetch data and render the LastWeekChart.
@@ -11,8 +19,11 @@ export async function LastWeekChart() {
 	const data = await fetchData<LastWeekData>('last-week');
 
 	return (
-		<Suspense fallback={<div>Loading chart...</div>}>
-			<LastWeekChartRenderer data={data} />
-		</Suspense>
+		<>
+			<MetricSwitcher items={METRIC_OPTIONS} defaultValue="temp" />
+			<Suspense fallback={<SkeletonLoader showHeader={false} />}>
+				<LastWeekChartRenderer data={data} />
+			</Suspense>
+		</>
 	);
 }

@@ -1,7 +1,15 @@
 import {Suspense} from 'react';
 import fetchData from '@/helpers/fetchData';
 import {NowData} from '@/types/api';
+import {MetricSwitcher} from '../MetricSwitcher';
+import {SkeletonLoader} from '../SkeletonLoader';
 import {NowMetricsRenderer} from './NowMetricsRenderer';
+
+const METRIC_OPTIONS = [
+	{label: 'Temp', value: 'temp'},
+	{label: 'Humidity', value: 'humidity'},
+	{label: 'Wind', value: 'windSpeed'},
+];
 
 /**
  * Server component to fetch data and render the NowMetrics component.
@@ -11,8 +19,11 @@ export async function NowMetrics() {
 	const data = await fetchData<NowData>('now');
 
 	return (
-		<Suspense fallback={<div>Loading metrics...</div>}>
-			<NowMetricsRenderer data={data} />
-		</Suspense>
+		<>
+			<MetricSwitcher items={METRIC_OPTIONS} defaultValue="temp" />
+			<Suspense fallback={<SkeletonLoader showHeader={false} showChart={false} />}>
+				<NowMetricsRenderer data={data} />
+			</Suspense>
+		</>
 	);
 }

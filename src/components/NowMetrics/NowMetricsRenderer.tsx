@@ -3,7 +3,6 @@
 import {Card, Group, SimpleGrid, Stack, Text, Title} from '@mantine/core';
 import {useQueryState} from 'nuqs';
 import {NowData} from '@/types/api';
-import {MetricSwitcher} from '../MetricSwitcher';
 import classes from './NowMetrics.module.css';
 
 type MetricKey = 'temp' | 'humidity' | 'windSpeed';
@@ -18,12 +17,6 @@ const METRIC_CONFIG: Record<MetricKey, MetricConfig> = {
 	humidity: {label: 'Humidity', unit: '%'},
 	windSpeed: {label: 'Wind speed', unit: 'm/s'},
 };
-
-const METRIC_OPTIONS = [
-	{label: 'Temp', value: 'temp'},
-	{label: 'Humidity', value: 'humidity'},
-	{label: 'Wind', value: 'windSpeed'},
-];
 
 /**
  * Format a metric value with its unit.
@@ -47,8 +40,6 @@ export function NowMetricsRenderer({data}: {data: NowData}) {
 
 	return (
 		<Stack className={classes.NowMetrics} gap="lg">
-			<MetricSwitcher items={METRIC_OPTIONS} defaultValue="temp" />
-
 			<SimpleGrid cols={{base: 1, sm: 2}} spacing="md" className={classes['NowMetrics-grid']}>
 				<Card className={classes['NowMetrics-card']} withBorder radius="md" padding="lg">
 					<Stack gap="xs">
@@ -64,7 +55,7 @@ export function NowMetricsRenderer({data}: {data: NowData}) {
 
 				<Card className={classes['NowMetrics-card']} withBorder radius="md" padding="lg">
 					<Stack gap="sm">
-						<Text className={classes['NowMetrics-labelText']}>All metrics</Text>{' '}
+						<Text className={classes['NowMetrics-labelText']}>All metrics</Text>
 						<Stack gap="xs">
 							{(Object.keys(METRIC_CONFIG) as MetricKey[]).map((key) => (
 								<Group key={key} justify="space-between" gap="xs">
