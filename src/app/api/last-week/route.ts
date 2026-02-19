@@ -24,7 +24,23 @@ export async function GET() {
 			tags: ['weather-last-week'],
 		});
 
-		const filteredData: LastWeekData = records.map((row) => ({
+		const hourlyData = records.reduce(
+			(acc, record) => {
+				const recordDate = new Date(record.obsTimeLocal);
+				const hourKey = `${recordDate.getFullYear()}-${recordDate.getMonth()}-${recordDate.getDate()}-${recordDate.getHours()}`;
+
+				if (!acc[hourKey]) {
+					acc[hourKey] = record;
+				}
+
+				return acc;
+			},
+			{} as Record<string, LastWeekCsvRow>
+		);
+
+		const filteredRecords = Object.values(hourlyData);
+
+		const filteredData: LastWeekData = filteredRecords.map((row) => ({
 			date: row.obsTimeLocal,
 			temp: row.temp,
 			humidity: row.humidity,
