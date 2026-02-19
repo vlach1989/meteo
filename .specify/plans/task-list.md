@@ -89,3 +89,11 @@
       `/now` page, the CurrentPosition component should reflect the same position
       and zoom that was set on the map. This will ensure a consistent user
       experience across different pages of the app.
+- [x] **Task 7.4:** I do not want to save map state as primitive values in the
+      URL, but rather as a JSON string. This will allow us to easily extend the map
+      state in the future if needed (e.g., adding more properties like map style,
+      layers, etc.) without having to change the URL structure. The JSON string
+      should be properly encoded and decoded when saving and retrieving the state
+      from the URL. This will ensure that the state is correctly preserved and can
+      be easily shared via URL. Explore https://nuqs.dev/docs for more details on
+      how to implement this.

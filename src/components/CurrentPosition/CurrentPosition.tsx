@@ -2,7 +2,7 @@
 
 import {Card, Group, Stack, Text} from '@mantine/core';
 import {useQueryState} from 'nuqs';
-import {latParser, lonParser, zoomParser} from '@/lib/state';
+import {mapStateParser, parseMapState} from '@/lib/state';
 import classes from './CurrentPosition.module.css';
 
 /**
@@ -10,9 +10,8 @@ import classes from './CurrentPosition.module.css';
  * @returns {JSX.Element} The rendered component.
  */
 export function CurrentPosition() {
-	const [longitude] = useQueryState('lon', lonParser);
-	const [latitude] = useQueryState('lat', latParser);
-	const [zoom] = useQueryState('zoom', zoomParser);
+	const [rawMapState] = useQueryState('map', mapStateParser);
+	const mapState = parseMapState(rawMapState);
 
 	return (
 		<Card className={classes.CurrentPosition} withBorder radius="md" padding="lg">
@@ -22,19 +21,19 @@ export function CurrentPosition() {
 					<Group justify="space-between" gap="xs">
 						<Text size="sm">Latitude:</Text>
 						<Text size="sm" fw={600}>
-							{latitude?.toFixed(4) ?? 'N/A'}
+							{mapState.latitude.toFixed(4)}
 						</Text>
 					</Group>
 					<Group justify="space-between" gap="xs">
 						<Text size="sm">Longitude:</Text>
 						<Text size="sm" fw={600}>
-							{longitude?.toFixed(4) ?? 'N/A'}
+							{mapState.longitude.toFixed(4)}
 						</Text>
 					</Group>
 					<Group justify="space-between" gap="xs">
 						<Text size="sm">Zoom:</Text>
 						<Text size="sm" fw={600}>
-							{zoom?.toFixed(2) ?? 'N/A'}
+							{mapState.zoom.toFixed(2)}
 						</Text>
 					</Group>
 				</Stack>

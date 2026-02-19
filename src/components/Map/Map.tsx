@@ -4,23 +4,22 @@ import DeckGL, {TileLayer} from 'deck.gl';
 import {BitmapLayer} from '@deck.gl/layers';
 import {useQueryState} from 'nuqs';
 import {ViewStateChangeParameters} from '@deck.gl/core';
-import {latParser, lonParser, zoomParser} from '@/lib/state';
+import {mapStateParser, parseMapState, serializeMapState} from '@/lib/state';
 
 /**
  * Map component using deck.gl with URL state synchronization.
  * @returns {JSX.Element} The rendered map.
  */
 export function Map() {
-	const [longitude, setLongitude] = useQueryState('lon', lonParser);
-	const [latitude, setLatitude] = useQueryState('lat', latParser);
-	const [zoom, setZoom] = useQueryState('zoom', zoomParser);
+	const [rawMapState, setRawMapState] = useQueryState('map', mapStateParser);
+	const mapState = parseMapState(rawMapState);
 
 	const viewState = {
-		longitude,
-		latitude,
-		zoom,
-		pitch: 0,
-		bearing: 0,
+		longitude: mapState.longitude,
+		latitude: mapState.latitude,
+		zoom: mapState.zoom,
+		pitch: mapState.pitch,
+		bearing: mapState.bearing,
 	};
 
 	const layers = [
@@ -61,9 +60,15 @@ export function Map() {
 			controller={true}
 			layers={layers}
 			onViewStateChange={({viewState}: ViewStateChangeParameters) => {
-				setLongitude(viewState.longitude);
-				setLatitude(viewState.latitude);
-				setZoom(viewState.zoom);
+				setRawMapState(
+					serializeMapState({
+						longitude: viewState.longitude,
+						latitude: viewState.latitude,
+						zoom: viewState.zoom,
+						pitch: viewState.pitch ?? 0,
+						bearing: viewState.bearing ?? 0,
+					})
+				);
 			}}
 		/>
 	);
