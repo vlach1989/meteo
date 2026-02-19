@@ -49,6 +49,11 @@
 - **Imports:** Sort imports from external libraries to internal modules; group
   by type (React, third-party, local components, styles).
 - **Modularization:** Split code into reusable pieces; avoid monolithic files.
+  Decouple helpers in separate files. Common or shared helpers should be placed
+  in `lib/`, specific next to the component if only used there.
+- **Docs:** Document all functions and components with JSDoc comments, including
+  parameter
+  types and return values.
 
 ## 4. Definition of Done (DoD)
 

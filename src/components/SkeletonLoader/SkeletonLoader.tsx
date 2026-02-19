@@ -1,15 +1,27 @@
 import {Skeleton} from '@mantine/core';
 import classes from './SkeletonLoader.module.css';
 
+/**
+ * Props for the SkeletonLoader component.
+ */
 type SkeletonLoaderProps = {
+	/** Number of text lines to render. */
 	lines?: number;
+	/** Whether to render the header skeleton. */
 	showHeader?: boolean;
+	/** Whether to render the chart skeleton. */
 	showChart?: boolean;
+	/** Additional class names for the root element. */
 	className?: string;
 };
 
 const DEFAULT_LINES = 3;
 
+/**
+ * Skeleton placeholder for data-fetching states.
+ * @param {SkeletonLoaderProps} props - Component props.
+ * @returns {JSX.Element} The rendered skeleton layout.
+ */
 export function SkeletonLoader({
 	lines = DEFAULT_LINES,
 	showHeader = true,

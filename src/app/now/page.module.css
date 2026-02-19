@@ -1,0 +1,10 @@
+.NowPage {
+	flex: 1;
+	padding: 24px 16px 40px;
+}
+
+.NowPage-header {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}

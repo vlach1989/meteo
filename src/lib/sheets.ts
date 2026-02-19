@@ -22,6 +22,8 @@ export interface FetchCsvOptions {
 
 /**
  * Build a public CSV export URL for a Google Sheet.
+ * @param {GetSheetCsvUrlParams} params - URL construction parameters.
+ * @returns {string} The full CSV export URL.
  */
 export const getSheetCsvUrl = (params: GetSheetCsvUrlParams): string => {
 	const {apiUrl, endpointId} = params;
@@ -30,6 +32,9 @@ export const getSheetCsvUrl = (params: GetSheetCsvUrlParams): string => {
 
 /**
  * Fetch CSV data from a URL and parse it into typed rows.
+ * @param {string} csvUrl - The public CSV URL to fetch.
+ * @param {FetchCsvOptions} options - Fetch and cache options.
+ * @returns {Promise<TRow[]>} Parsed CSV rows.
  */
 export const fetchCsvRows = async <TRow>(csvUrl: string, options: FetchCsvOptions): Promise<TRow[]> => {
 	const response = await fetch(csvUrl, {

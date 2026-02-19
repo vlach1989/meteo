@@ -1,0 +1,53 @@
+.NowMetricSwitcher {
+	display: flex;
+	flex-direction: column;
+}
+
+.NowMetricSwitcher-segmented {
+	align-self: flex-start;
+	border-radius: 999px;
+	background-color: var(--mantine-color-gray-1);
+	padding: 4px;
+}
+
+.NowMetricSwitcher-control {
+	min-width: 120px;
+}
+
+.NowMetricSwitcher-label {
+	font-weight: 600;
+	padding: 6px 12px;
+}
+
+.NowMetricSwitcher-indicator {
+	border-radius: 999px;
+	background-color: var(--mantine-color-blue-6);
+}
+
+.NowMetricSwitcher-grid {
+	width: 100%;
+}
+
+.NowMetricSwitcher-card {
+	background-color: var(--mantine-color-white);
+}
+
+.NowMetricSwitcher-labelText {
+	font-size: 0.9rem;
+	font-weight: 600;
+	color: var(--mantine-color-gray-7);
+}
+
+.NowMetricSwitcher-value {
+	font-size: 2.25rem;
+}
+
+@media (max-width: 640px) {
+	.NowMetricSwitcher-control {
+		min-width: 100px;
+	}
+
+	.NowMetricSwitcher-value {
+		font-size: 2rem;
+	}
+}

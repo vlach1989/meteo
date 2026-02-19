@@ -5,6 +5,7 @@ import {LastWeekCsvRow, LastWeekData} from '@/types/api';
 /**
  * GET endpoint for weather data from the last week.
  * Cached based on REVALIDATE_LAST_WEEK environment variable (default: 60 seconds).
+ * @returns {Promise<NextResponse>} The JSON response with last-week data.
  */
 export async function GET() {
 	const apiUrl = process.env.API_URL;

@@ -5,6 +5,7 @@ import {NowCsvRow, NowData} from '@/types/api';
 /**
  * GET endpoint for current weather data.
  * Cached based on REVALIDATE_NOW environment variable (default: 60 seconds).
+ * @returns {Promise<NextResponse>} The JSON response with current conditions.
  */
 export async function GET() {
 	const apiUrl = process.env.API_URL;
@@ -25,6 +26,20 @@ export async function GET() {
 
 		if (!record) {
 			return NextResponse.json({error: 'No data available.'}, {status: 404});
+		}
+
+		const requiredKeys: Array<keyof NowData> = ['temp', 'humidity', 'windSpeed'];
+		const missingKeys = requiredKeys.filter((key) => !Number.isFinite(record[key]));
+
+		if (missingKeys.length > 0) {
+			return NextResponse.json(
+				{
+					error: 'Missing or invalid columns in CSV response.',
+					missingKeys,
+					availableKeys: Object.keys(record ?? {}),
+				},
+				{status: 500}
+			);
 		}
 
 		const nowConditions: NowData = {

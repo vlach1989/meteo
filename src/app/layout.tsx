@@ -5,6 +5,7 @@ import {Navigation} from '../components/Navigation';
 import classes from './layout.module.css';
 import '@mantine/charts/styles.css';
 import '@mantine/core/styles.css';
+import {NuqsAdapter} from 'nuqs/adapters/next/app';
 
 export const metadata: Metadata = {
 	title: 'Meteo',
@@ -13,6 +14,8 @@ export const metadata: Metadata = {
 
 /**
  * Root layout for the Meteo app.
+ * @param {{children: React.ReactNode}} props - Layout props.
+ * @returns {JSX.Element} The rendered app shell.
  */
 export default function RootLayout({
 	children,
@@ -27,8 +30,10 @@ export default function RootLayout({
 			</head>
 			<body className={classes['RootLayout-body']}>
 				<MantineProvider defaultColorScheme="light">
-					<Navigation />
-					{children}
+					<NuqsAdapter>
+						<Navigation />
+						{children}
+					</NuqsAdapter>
 				</MantineProvider>
 			</body>
 		</html>

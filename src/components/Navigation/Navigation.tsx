@@ -14,6 +14,7 @@ const NAV_ITEMS: Array<{label: string; value: string}> = [
 
 /**
  * Top navigation switcher for app sections.
+ * @returns {JSX.Element} The rendered navigation control.
  */
 export function Navigation() {
 	const pathname = usePathname();
