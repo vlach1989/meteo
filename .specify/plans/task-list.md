@@ -46,3 +46,22 @@
 
 - [x] **Task 5.1:** Verify all components use local `.module.css` files.
 - [x] **Task 5.2:** Ensure no `any` types remain in the codebase.
+
+## Phase 6: New feature: Map
+
+- [ ] **Task 6.1:** Add a new page `/map` that displays a map using the
+      `deck.gl` library. Current zoom and position of the map will be stored in
+      URL (same way like other components in the app) and will be updated when user
+      interacts with the map. Use the OpenStreetMap as base layer. Do not use map
+      tiles from Mapbox or other providers that require an API key, use open
+      resources for base map. Keep the component as simple as possible, without any
+      additional features like markers, popups, etc. The main goal of this task is
+      to implement the map and synchronize its state with the URL, so that the
+      position and zoom can be shared via URL and will be preserved when user
+      refreshes the page or navigates back and forth between pages. The map should
+      also be responsive and work well on different screen sizes.
+- [ ] **Task 6.2:** Add a CurrentPosition component to the /now page, which will
+      display the position & zoom which was set in the map on the `/map` page. This
+      component will be updated when user interacts with the map on the `/map` page.
+      The position and zoom will be displayed in a human-readable format (e.g., "
+      Latitude: 40.7128, Longitude: -74.0060, Zoom: 12").

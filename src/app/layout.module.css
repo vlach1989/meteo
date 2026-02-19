@@ -10,6 +10,8 @@
 .RootLayout-main {
 	flex: 1;
 	padding-top: 72px;
+	display: flex;
+	flex-direction: column;
 }
 
 @media (max-width: 640px) {

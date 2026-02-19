@@ -1,7 +1,7 @@
 'use client';
 
 import {Group} from '@mantine/core';
-import {IconChartLine, IconSun} from '@tabler/icons-react';
+import {IconChartLine, IconMap, IconSun} from '@tabler/icons-react';
 import Link from 'next/link';
 import {usePathname} from 'next/navigation';
 import classes from './Navigation.module.css';
@@ -18,6 +18,7 @@ type NavItem = {
 const NAV_ITEMS: NavItem[] = [
 	{label: 'Now', href: '/now', Icon: IconSun},
 	{label: 'Last week', href: '/last-week', Icon: IconChartLine},
+	{label: 'Map', href: '/map', Icon: IconMap},
 ];
 
 /**
@@ -26,7 +27,7 @@ const NAV_ITEMS: NavItem[] = [
  */
 export function Navigation() {
 	const pathname = usePathname();
-	const activeHref = pathname?.startsWith('/last-week') ? '/last-week' : '/now';
+	const activeHref = pathname?.startsWith('/last-week') ? '/last-week' : pathname?.startsWith('/map') ? '/map' : '/now';
 
 	return (
 		<nav className={classes.Navigation} aria-label="Primary">
