@@ -1,0 +1,28 @@
+.NowMetrics {
+	display: flex;
+	flex-direction: column;
+}
+
+.NowMetrics-grid {
+	width: 100%;
+}
+
+.NowMetrics-card {
+	background-color: var(--mantine-color-white);
+}
+
+.NowMetrics-labelText {
+	font-size: 0.9rem;
+	font-weight: 600;
+	color: var(--mantine-color-gray-7);
+}
+
+.NowMetrics-value {
+	font-size: 2.25rem;
+}
+
+@media (max-width: 640px) {
+	.NowMetrics-value {
+		font-size: 2rem;
+	}
+}

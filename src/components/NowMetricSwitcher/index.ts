@@ -1,1 +1,0 @@
-export {NowMetricSwitcher} from './NowMetricSwitcher';

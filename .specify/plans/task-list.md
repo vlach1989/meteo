@@ -33,11 +33,11 @@
     accordingly when toggled.
 - [x] **Task 4.3:** Set up `/` as a fallback route that renders the content of
       `/now`.
-- [] **Task 4.4:** There is a metric switcher on both pages, which should be
-  reusable. Refactor it into a separate component that can be used on both pages
-  without code duplication. It should look like NowMetricSwitcher, but should be
-  more generic and reusable. The component should also have appropriate styling
-  to match the overall design of the app.
+- [ ] **Task 4.4:** There is a metric switcher on both pages, which should be
+      reusable. Refactor it into a separate component that can be used on both pages
+      without code duplication. It should look like NowMetricSwitcher, but should be
+      more generic and reusable. The component should also have appropriate styling
+      to match the overall design of the app.
 
 ## Phase 5: Validation
 

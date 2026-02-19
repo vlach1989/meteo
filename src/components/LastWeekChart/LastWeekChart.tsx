@@ -1,9 +1,10 @@
 'use client';
 
 import {LineChart} from '@mantine/charts';
-import {SegmentedControl, type SegmentedControlItem, Stack} from '@mantine/core';
-import {parseAsStringEnum, useQueryState} from 'nuqs';
+import {Stack} from '@mantine/core';
+import {useQueryState} from 'nuqs';
 import {LastWeekData} from '@/types/api';
+import {MetricSwitcher} from '../MetricSwitcher';
 import classes from './LastWeekChart.module.css';
 
 type MetricKey = 'temp' | 'humidity' | 'windSpeed';
@@ -20,13 +21,11 @@ const METRIC_CONFIG: Record<MetricKey, MetricConfig> = {
 	windSpeed: {label: 'Wind Speed', unit: 'm/s', color: 'cyan.6'},
 };
 
-const METRIC_OPTIONS: SegmentedControlItem[] = [
+const METRIC_OPTIONS = [
 	{label: 'Temp', value: 'temp'},
 	{label: 'Humidity', value: 'humidity'},
 	{label: 'Wind', value: 'windSpeed'},
 ];
-
-const metricParser = parseAsStringEnum(['temp', 'humidity', 'windSpeed']).withDefault('temp');
 
 const formatDate = (date: string) => new Date(date).toLocaleDateString('en-US', {month: 'short', day: 'numeric'});
 
@@ -36,8 +35,8 @@ const formatDate = (date: string) => new Date(date).toLocaleDateString('en-US', 
  * @returns {JSX.Element} The rendered chart and controls.
  */
 export function LastWeekChart({data}: {data: LastWeekData}) {
-	const [metric, setMetric] = useQueryState('metric', metricParser);
-	const selectedMetric: MetricKey = metric ?? 'temp';
+	const [metric] = useQueryState('metric');
+	const selectedMetric: MetricKey = (metric as MetricKey) ?? 'temp';
 	const selectedConfig = METRIC_CONFIG[selectedMetric];
 
 	const chartData = data.map((item) => ({
@@ -47,12 +46,7 @@ export function LastWeekChart({data}: {data: LastWeekData}) {
 
 	return (
 		<Stack className={classes.LastWeekChart} gap="lg">
-			<SegmentedControl
-				data={METRIC_OPTIONS}
-				value={selectedMetric}
-				onChange={(value) => setMetric(value as MetricKey)}
-				fullWidth
-			/>
+			<MetricSwitcher items={METRIC_OPTIONS} defaultValue="temp" />
 			<div className={classes['LastWeekChart-chart']}>
 				<LineChart
 					data={chartData}

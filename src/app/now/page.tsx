@@ -1,5 +1,5 @@
 import {Container, Stack, Text, Title} from '@mantine/core';
-import {NowMetricSwitcher} from '@/components/NowMetricSwitcher';
+import {NowMetrics} from '@/components/NowMetrics';
 import fetchData from '@/helpers/fetchData';
 import {NowData} from '@/types/api';
 import classes from './page.module.css';
@@ -18,7 +18,7 @@ export default async function NowPage() {
 					<Title order={1}>Current data</Title>
 					<Text c="dimmed">Live values from the latest observation.</Text>
 				</header>
-				<NowMetricSwitcher data={data} />
+				<NowMetrics data={data} />
 			</Stack>
 		</Container>
 	);
