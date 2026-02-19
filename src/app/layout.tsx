@@ -32,7 +32,7 @@ export default function RootLayout({
 				<MantineProvider defaultColorScheme="light">
 					<NuqsAdapter>
 						<Navigation />
-						{children}
+						<main className={classes['RootLayout-main']}>{children}</main>
 					</NuqsAdapter>
 				</MantineProvider>
 			</body>
