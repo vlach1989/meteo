@@ -1,0 +1,16 @@
+/* SUIT CSS styles for LastWeekChart */
+.LastWeekChart {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+
+.LastWeekChart-header {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.LastWeekChart-chart {
+	width: 100%;
+}

@@ -18,11 +18,26 @@
 - [x] **Task 4.1:** Build the `/now` page:
   - Implement a `nuqs` switcher for Temp/Humidity/Wind Speed.
   - Fetch data from `api/now` and display via Mantine components.
-- [ ] **Task 4.2:** Build the `/last-week` page:
+- [x] **Task 4.2:** Build the `/last-week` page:
   - Fetch data from `api/last-week`.
-  - Render a Line Chart showing the last 7 days of data.
+  - Render a Line Chart from Mantine (@mantine/charts) showing the last 7 days
+    of data.
+  - The chart should have a legend, tooltips, and appropriate axes labels. The
+    x-axis should represent the dates, and the y-axis should represent the
+    values of Temp/Humidity/Wind Speed. The points should be invisible by
+    default, but should become visible when hovered over. The chart should also
+    have a title that indicates which metric is being displayed (e.g., "
+    Temperature Over the Last Week").
+  - Implement a `nuqs` switcher for Temp/Humidity/Wind Speed, which will update
+    the chart
+    accordingly when toggled.
 - [x] **Task 4.3:** Set up `/` as a fallback route that renders the content of
       `/now`.
+- [] **Task 4.4:** There is a metric switcher on both pages, which should be
+  reusable. Refactor it into a separate component that can be used on both pages
+  without code duplication. It should look like NowMetricSwitcher, but should be
+  more generic and reusable. The component should also have appropriate styling
+  to match the overall design of the app.
 
 ## Phase 5: Validation
 

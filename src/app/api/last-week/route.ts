@@ -27,6 +27,8 @@ export async function GET() {
 		const filteredData: LastWeekData = records.map((row) => ({
 			date: row.obsTimeLocal,
 			temp: row.temp,
+			humidity: row.humidity,
+			windSpeed: row.windSpeed,
 		}));
 
 		return NextResponse.json(filteredData, {

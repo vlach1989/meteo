@@ -13,11 +13,15 @@ export interface NowData {
 export interface LastWeekCsvRow {
 	obsTimeLocal: string;
 	temp: number;
+	humidity: number;
+	windSpeed: number;
 }
 
 export interface LastWeekDataPoint {
 	date: string;
 	temp: number;
+	humidity: number;
+	windSpeed: number;
 }
 
 export type LastWeekData = LastWeekDataPoint[];
